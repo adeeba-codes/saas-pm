@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark mode uses class strategy, toggled in main.jsx / a theme hook.
+   Keeping body background/text themeable via Tailwind's dark: prefix
+   directly in components, so no extra overrides needed here. */
