@@ -68,8 +68,11 @@ public class SecurityConfig {
 
         // React/Vite frontend
         configuration.setAllowedOrigins(
-            Arrays.asList("http://localhost:5173")
-        );
+    Arrays.asList(
+        "http://localhost:5173",
+        "https://saas-pm-frontend-g2ay.onrender.com"
+    )
+);
 
         // HTTP methods allowed from the frontend
         configuration.setAllowedMethods(
