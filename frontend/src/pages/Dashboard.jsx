@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   LayoutGrid, Plus, LogOut, FolderKanban, Search,
   CheckCircle2, Clock, ListTodo, Layers, Users,
@@ -13,6 +13,8 @@ const COLUMN_STYLES = {
 };
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const [projects, setProjects] = useState([]);
   const [allTasks, setAllTasks] = useState([]); // aggregated across all projects, for stats + mini board
   const [loadingTasks, setLoadingTasks] = useState(true);
@@ -52,9 +54,9 @@ export default function Dashboard() {
   }
 
   function logout() {
-    localStorage.clear();
-    window.location.href = '/login';
-  }
+  localStorage.clear();
+  navigate('/login', { replace: true });
+}
 
   const filteredProjects = projects.filter(p =>
     p.name.toLowerCase().includes(search.toLowerCase())
