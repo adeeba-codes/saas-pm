@@ -9,8 +9,6 @@ function isAuthenticated() {
   return !!localStorage.getItem('token');
 }
 
-// Simple guard: redirect to login if there's no token.
-// A real app would also verify the token isn't expired.
 function ProtectedRoute({ children }) {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 }
@@ -19,16 +17,38 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+
       <Route path="/signup" element={<Signup />} />
-      <Route path="/" element={
-        <ProtectedRoute><Dashboard /></ProtectedRoute>
-      } />
-      <Route path="/projects/:projectId" element={
-        <ProtectedRoute><ProjectBoard /></ProtectedRoute>
-      } />
-      <Route path="/team" element={
-        <ProtectedRoute><TeamMembers /></ProtectedRoute>
-      } />
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/projects/:projectId"
+        element={
+          <ProtectedRoute>
+            <ProjectBoard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/team"
+        element={
+          <ProtectedRoute>
+            <TeamMembers />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Catch unknown routes */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
